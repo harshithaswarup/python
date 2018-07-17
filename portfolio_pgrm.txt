@@ -1,0 +1,39 @@
+import urllib, json
+class Stock:
+    def stock_details(self):
+        self.stock_name=[]
+        self.stock_count=[]
+        file = open("C:\Users\Harshitha\Desktop\pgrm\portfolio.txt","r")
+        for line in file:
+            print str(line)
+            x=line.split(',')
+            for i in x:
+                c=i.split('-')
+                self.stock_name.append(c[0])
+                self.stock_name
+                self.stock_count.append(c[1])
+                # to convert strings into int list
+                self.stock_count= map(int,self.stock_count)
+            
+    def stock_price(self):
+        url = "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=MSFT&interval=15min&outputsize=full&apikey=demo"
+        response = urllib.urlopen(url)
+        data = json.loads(response.read())
+        # price of "GOOG"
+        self.goog_price=data['Time Series (15min)']['2018-07-16 15:30:00']['2. high']
+        print "stock price of GOOG:",self.goog_price
+        #price of "MS"
+        self.ms_price=data['Time Series (15min)']['2018-07-16 15:15:00']['2. high']
+        print "stock price of MS:",self.ms_price
+        #price of "INFY"
+        self.infy_price=data['Time Series (15min)']['2018-07-16 15:00:00']['2. high']
+        print "stock price of INFY:",self.infy_price
+        #price of "AMZN"
+        self.amzn_price=data['Time Series (15min)']['2018-07-16 15:00:00']['2. high']
+        print "stock price of AMZN:",self.amzn_price
+
+        
+s=Stock()
+s.stock_details()
+s.stock_price()
+s.stock_value()
