@@ -1,10 +1,11 @@
 import urllib, json
 class Portfolio:
-    # prints the stock name and count
     def get_stock_details(self):
         self.stock_name=[]
         self.stock_count=[]
-        file = open("C:\Users\Harshitha\Desktop\pgrm\portfolio.txt","r")
+        getFile=raw_input("enter the file:")
+        #C:\Users\Harshitha\Desktop\pgrm\portfolio.txt
+        file = open(getFile,"r")
         for line in file:
             print str(line)
             a=line.split(',')
@@ -15,22 +16,16 @@ class Portfolio:
                 # the values are converted into int
                 self.stock_count=map(int,self.stock_count)
                 
-    # values are retrived from the URL         
-    def get_stock_price(self,x):
+    def retrieve_stock_price(self,x):
         url = "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=MSFT&interval=15min&outputsize=full&apikey=demo"
         url_1=url.replace("MSFT",x)
         response = urllib.urlopen(url)
         data = json.loads(response.read())
         self.MS_price=data['Time Series (15min)']['2018-07-16 16:00:00']['2. high']
-        print "current price of MS:",self.MS_price
         self.GOOG_price=data['Time Series (15min)']['2018-07-16 15:45:00']['2. high']
-        print "current price of GOOG:",self.GOOG_price
         self.INFY_price=data['Time Series (15min)']['2018-07-16 15:30:00']['2. high']
-        print "current price of INFY:",self.INFY_price
         self.AMZN_price=data['Time Series (15min)']['2018-07-16 15:15:00']['2. high']
-        print "current price of AMZN:",self.AMZN_price
         
-    # value of the stock is multiplied with the count of the stock
     def get_stock_value(self):
         self.stock_value_1=[(float(self.stock_count[0])*float(self.GOOG_price))+(float(self.stock_count[1])*float(self.MS_price))]
         print "the stock value of 1st person:",self.stock_value_1
@@ -51,6 +46,6 @@ class Portfolio:
 
 s=Portfolio()
 s.get_stock_details()
-s.get_stock_price("GOOG")
+s.retrieve_stock_price("GOOG")
 s.get_stock_value()
 s.to_display_values()
