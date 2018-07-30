@@ -14,14 +14,14 @@ class TestString(unittest.TestCase):
 
     def test_date1(self):
         t=Temperature()
-        self.date=t.get_date()
-        self.assertTrue(self.date,'12/11/18')
+        self.date_2=t.get_user_date()
+        self.assertNotEqual(self.date_2,'28-09-1998')
 
-    def test_temp(self):
+
+    def test_res(self):
         t=Temperature()
-        self.fin_dict=t.get_temprtr(date)
-        fin_dict_1={'12/11/2018':[['234C',500,'500C']]}
-        self.assertNotEqual(self.fin_dict,fin_dict_1)
+        self.res=t.get_temprtr(date)
+        self.assertEqual(self.res,560)
         
         
 if __name__=='__main__':
